@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useI18n } from "@/lib/i18n";
+import { trackLead } from "@/lib/tiktok";
 
 const SERVICES = [
   { en: "Women’s Haircuts", es: "Cortes de Dama" },
@@ -101,6 +102,7 @@ export function InquiryForm() {
       });
       if (res.ok) {
         setSubmitStatus("success");
+        trackLead(email.trim(), phone.trim(), name.trim(), selected.join(", "));
         setName(""); setPhone(""); setEmail(""); setSelected([]);
         setTouched({});
       } else {
